@@ -77,48 +77,84 @@ Color pokemonColor({String type}) {
   }
 }
 
+const List<String> kPokemonTypes = [
+  'Grass',
+  'Fire',
+  'Water',
+  'Electric',
+  'Ice',
+  'Fighting',
+  'Poison',
+  'Ground',
+  'Flying',
+  'Psychic',
+  'Bug',
+  'Rock',
+  'Ghost',
+  'Dragon',
+  'Dark',
+  'Steel',
+  'Fairy'
+];
+
 const String kPokemonsQuery = '''
-    query listPokemons(\$count : Int!)
-    {
-      pokemons(first: \$count){
-        id
-        number
-        name
-        weight {
-          minimum
-          maximum
-        }
-        height {
-          minimum
-          maximum
-        }
-        classification
-        types
-        resistant
-        attacks {
-          fast {
-            name
-            type
-            damage
-          }
-          special {
-            name
-            type
-            damage
-          }
-        }
-        weaknesses
-        fleeRate
-        maxCP
-        maxHP
-        evolutions {
-          id
-        }
-        evolutionRequirements {
-          amount
+  query listPokemons(\$count : Int!)
+  {
+    pokemons(first: \$count){
+      id
+      number
+      name
+      image
+      types
+    }
+  }
+''';
+
+const String kSinglePokemonQuery = '''
+  query singlePokemon(\$id : String!) {
+    pokemon(id: \$id) {
+      id
+      number
+      name
+      image
+      types
+      weight {
+        minimum
+        maximum
+      }
+      height {
+        minimum
+        maximum
+      }
+      classification
+      resistant
+      attacks {
+        fast {
           name
+          type
+          damage
+        } 
+        special {
+          name
+          type
+          damage
         }
+      }
+      weaknesses
+      fleeRate
+      maxCP
+      maxHP
+      evolutions {
+        id
+        name
+        types
+        number
         image
       }
+      evolutionRequirements {
+        amount
+        name
+      }  
     }
-  ''';
+  }
+''';

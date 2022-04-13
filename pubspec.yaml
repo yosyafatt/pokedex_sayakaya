@@ -30,6 +30,7 @@ dependencies:
   graphql_flutter: ^4.0.1
   google_fonts: ^1.1.2
   infinite_scroll_pagination: ^2.3.0
+  get: ^3.26.0
 
 dev_dependencies:
   flutter_test:

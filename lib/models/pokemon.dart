@@ -2,28 +2,29 @@ class Pokemon {
   String id;
   String number;
   String name;
+  String image;
+  List<String> types;
   Weight weight;
   Weight height;
   String classification;
-  List<String> types;
   List<String> resistant;
   Attacks attacks;
   List<String> weaknesses;
   double fleeRate;
-  int maxCP;
-  int maxHP;
+  num maxCP;
+  num maxHP;
   List<Evolutions> evolutions;
   EvolutionRequirements evolutionRequirements;
-  String image;
 
   Pokemon(
       {this.id,
       this.number,
       this.name,
+      this.image,
+      this.types,
       this.weight,
       this.height,
       this.classification,
-      this.types,
       this.resistant,
       this.attacks,
       this.weaknesses,
@@ -31,19 +32,19 @@ class Pokemon {
       this.maxCP,
       this.maxHP,
       this.evolutions,
-      this.evolutionRequirements,
-      this.image});
+      this.evolutionRequirements});
 
   Pokemon.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     number = json['number'];
     name = json['name'];
+    image = json['image'];
+    types = json['types'].cast<String>();
     weight =
         json['weight'] != null ? new Weight.fromJson(json['weight']) : null;
     height =
         json['height'] != null ? new Weight.fromJson(json['height']) : null;
     classification = json['classification'];
-    types = json['types'].cast<String>();
     resistant = json['resistant'].cast<String>();
     attacks =
         json['attacks'] != null ? new Attacks.fromJson(json['attacks']) : null;
@@ -60,7 +61,6 @@ class Pokemon {
     evolutionRequirements = json['evolutionRequirements'] != null
         ? new EvolutionRequirements.fromJson(json['evolutionRequirements'])
         : null;
-    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -68,6 +68,8 @@ class Pokemon {
     data['id'] = this.id;
     data['number'] = this.number;
     data['name'] = this.name;
+    data['image'] = this.image;
+    data['types'] = this.types;
     if (this.weight != null) {
       data['weight'] = this.weight.toJson();
     }
@@ -75,7 +77,6 @@ class Pokemon {
       data['height'] = this.height.toJson();
     }
     data['classification'] = this.classification;
-    data['types'] = this.types;
     data['resistant'] = this.resistant;
     if (this.attacks != null) {
       data['attacks'] = this.attacks.toJson();
@@ -90,7 +91,6 @@ class Pokemon {
     if (this.evolutionRequirements != null) {
       data['evolutionRequirements'] = this.evolutionRequirements.toJson();
     }
-    data['image'] = this.image;
     return data;
   }
 }
@@ -150,7 +150,7 @@ class Attacks {
 class Skill {
   String name;
   String type;
-  int damage;
+  num damage;
 
   Skill({this.name, this.type, this.damage});
 
@@ -171,22 +171,34 @@ class Skill {
 
 class Evolutions {
   String id;
+  String name;
+  List<String> types;
+  String number;
+  String image;
 
-  Evolutions({this.id});
+  Evolutions({this.id, this.name, this.types, this.number, this.image});
 
   Evolutions.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    name = json['name'];
+    types = json['types'].cast<String>();
+    number = json['number'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['name'] = this.name;
+    data['types'] = this.types;
+    data['number'] = this.number;
+    data['image'] = this.image;
     return data;
   }
 }
 
 class EvolutionRequirements {
-  int amount;
+  num amount;
   String name;
 
   EvolutionRequirements({this.amount, this.name});
@@ -200,6 +212,57 @@ class EvolutionRequirements {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['amount'] = this.amount;
     data['name'] = this.name;
+    return data;
+  }
+}
+
+class PokemonList {
+  List<PokemonInfo> pokemons;
+
+  PokemonList({this.pokemons});
+
+  PokemonList.fromJson(Map<String, dynamic> json) {
+    if (json['pokemons'] != null) {
+      pokemons = new List<PokemonInfo>();
+      json['pokemons'].forEach((v) {
+        pokemons.add(new PokemonInfo.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.pokemons != null) {
+      data['pokemons'] = this.pokemons.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class PokemonInfo {
+  String id;
+  String number;
+  String name;
+  String image;
+  List<String> types;
+
+  PokemonInfo({this.id, this.number, this.name, this.image, this.types});
+
+  PokemonInfo.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    number = json['number'];
+    name = json['name'];
+    image = json['image'];
+    types = json['types'].cast<String>();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['number'] = this.number;
+    data['name'] = this.name;
+    data['image'] = this.image;
+    data['types'] = this.types;
     return data;
   }
 }

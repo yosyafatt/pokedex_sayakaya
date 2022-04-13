@@ -21,6 +21,9 @@ class RootApp extends StatelessWidget {
       child: MaterialApp(
         home: HomeScreen(),
         theme: ThemeData(
+          primaryTextTheme: GoogleFonts.poppinsTextTheme(
+            Theme.of(context).primaryTextTheme,
+          ),
           textTheme: GoogleFonts.poppinsTextTheme(
             Theme.of(context).textTheme,
           ),

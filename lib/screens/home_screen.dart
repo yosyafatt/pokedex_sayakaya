@@ -1,38 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:pokemonapp_sayakaya/utils/api.dart';
-// import 'package:graphql_flutter/graphql_flutter.dart';
 import '../utils/sizeconfig.dart';
-// import '../utils/constanst.dart';
-import '../widgets/pokemon_list.dart';
+import './widgets/pokemon_list.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
 
   @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    // Apis api = Apis();
     return Scaffold(
-      backgroundColor: Colors.teal.shade100,
       appBar: AppBar(
-        title: Image.asset(
-          'assets/logo.png',
-          height: propHeight(kToolbarHeight - 6),
+        centerTitle: true,
+        title: SizedBox(
+          height: kToolbarHeight,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Image.asset(
+              'assets/logo.png',
+            ),
+          ),
         ),
         elevation: 0,
-        backgroundColor: Colors.grey.shade100,
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.filter_list_rounded,
-              color: Colors.grey.shade800,
-            ),
-            onPressed: () {
-              // api.listPokemons(2);
-            },
-          ),
-        ],
       ),
+
       // body: Container(),
       body: PokemonListWidget(),
     );
